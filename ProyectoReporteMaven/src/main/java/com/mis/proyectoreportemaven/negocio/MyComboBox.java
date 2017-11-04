@@ -5,26 +5,30 @@
  */
 package com.mis.proyectoreportemaven.negocio;
 
-import javax.swing.JButton;
+
+import com.mis.proyectoreportemaven.Utils.Constantes;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
 
 /**
  *
  * @author admin
  */
-public class MyTexto extends JTextField implements Componente {
+public class MyComboBox extends JComboBox<Object> implements Componente {
 
     private String nombreBD;
     private String operadorBD;
     private int tipo;
     
-    public MyTexto() {
+    public MyComboBox(DefaultComboBoxModel<Object> valor) {
         super();
     }
-    
-    public MyTexto(String texto,String nombreBD, String operador, int tipo) {
-        super(texto);
+
+    public MyComboBox(String valor,int tipo,String nombreBD, String operador) {
+        super();
+        setModel(generarValores(valor));
         this.nombreBD=nombreBD;
         this.operadorBD=operador;
         this.tipo=tipo;
@@ -40,12 +44,12 @@ public class MyTexto extends JTextField implements Componente {
 
     @Override
     public Object getValor() {
-        return getText();
+        return getModel();
     }
 
     @Override
     public void setValor(Object valor) {
-        setText((String) valor);
+        setModel((ComboBoxModel<Object>)valor);
     }
 
     @Override
@@ -68,6 +72,15 @@ public class MyTexto extends JTextField implements Componente {
         this.tipo=tipo;
     }
     
-    
+    private DefaultComboBoxModel<Object> generarValores(String tipo){
+        DefaultComboBoxModel<Object> model =new DefaultComboBoxModel<>();
+        switch(tipo){
+            case Constantes.COMBO_CLIENTE:
+                model.addElement("ID");
+                model.addElement("NOMBRE");
+                break;
+        }
+        return model;
+    }
     
 }

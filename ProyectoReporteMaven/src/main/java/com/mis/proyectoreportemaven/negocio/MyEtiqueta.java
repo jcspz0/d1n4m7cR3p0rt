@@ -16,6 +16,7 @@ public class MyEtiqueta extends JLabel implements Componente {
 
     private String nombreBD;
     private String operadorBD;
+    private int tipo;
     
     public MyEtiqueta() {
         super();
@@ -58,6 +59,16 @@ public class MyEtiqueta extends JLabel implements Componente {
     @Override
     public void setOperadorBD(String operador) {
         this.operadorBD=operador;
+    }
+
+    @Override
+    public int getTipo() {
+        return tipo;
+    }
+
+    @Override
+    public void setTipo(int tipo) {
+        this.tipo=tipo;
     }
     
     

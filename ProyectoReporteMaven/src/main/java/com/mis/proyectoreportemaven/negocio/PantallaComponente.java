@@ -6,6 +6,8 @@
 package com.mis.proyectoreportemaven.negocio;
 
 import com.mis.proyectoreportemaven.Utils.Constantes;
+import com.mis.proyectoreportemaven.entity.Cliente;
+import com.mis.proyectoreportemaven.entity.ClienteJpaController;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -16,6 +18,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.swing.Box;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -41,7 +47,9 @@ public class PantallaComponente extends JFrame implements IMyBoton{
 //        setLayout(null);
         box = Box.createVerticalBox();
         
-        
+        //Esto es para registrar el escuchador
+        EventoBoton eventoBoton = new EventoBoton();
+        eventoBoton.attach(this);
     }
 
     @Override
@@ -81,6 +89,27 @@ public class PantallaComponente extends JFrame implements IMyBoton{
         if(tipo==Constantes.BOTON_REPORTE){
             System.out.println("Se presiono un boton de tipo reporte");
         }
+        if(tipo==Constantes.BOTON_AGREGAR_CABECERA){
+            System.out.println("Se presiono un boton de agregado de cabeceras");
+            
+        }
+        consulta(crearQuery());
+    }
+    
+    private void consulta(String query){
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("prueba");
+        EntityManager manager = factory.createEntityManager();
+        Query q = manager.createNativeQuery(query, Cliente.class);
+        List<Cliente> clientes = q.getResultList();
+        for (Iterator<Cliente> iterator = clientes.iterator(); iterator.hasNext();) {
+            Cliente next = iterator.next();
+            System.out.println(next.getNombre());
+        }
+        manager.close();
+        factory.close();
     }
 
+    private String crearQuery(){
+        return "";
+    }
 }

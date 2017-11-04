@@ -8,6 +8,8 @@ package com.mis.proyectoreportemaven.negocio;
 import com.mis.proyectoreportemaven.Utils.Constantes;
 import java.awt.Dimension;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -22,6 +24,9 @@ public class MyBoton extends JButton implements Componente {
 
     private String nombreBD;
     private String operadorBD;
+    private int tipo;
+    private MyComboBox comboBox;
+    private MyEtiqueta etiqueta;
     
     public static ArrayList<IMyBoton> observadores = new ArrayList<>();
     
@@ -29,17 +34,33 @@ public class MyBoton extends JButton implements Componente {
         super();
     }
     
-    public MyBoton(String valor) {
+    public MyBoton(String valor,int tipo) {
         super(valor);
-        
+//        if (tipo==Constantes.BOTON_REPORTE) {
+            addActionListener(new ActionListener() {
+                EventoBoton eventoBoton = new EventoBoton();
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                     eventoBoton.notifyObservers();
+                }
+            });
+//        }
     }
     
-    public MyBoton(String texto,String nombreBD, String operador) {
+    public MyBoton(String texto,int tipo,MyComboBox comboBox,MyEtiqueta etiqueta) {
         super(texto);
-        this.nombreBD=nombreBD;
-        this.operadorBD=operador;
-        setSize(100, 100);
-        validate();
+        this.tipo=tipo;
+        this.comboBox=comboBox;
+        this.etiqueta=etiqueta;
+//        if (tipo==Constantes.BOTON_REPORTE) {
+            addActionListener(new ActionListener() {
+                EventoBoton eventoBoton = new EventoBoton();
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                     eventoBoton.notifyObservers();
+                }
+            });
+//        }
     }
 
     public String getNombreBD() {
@@ -70,8 +91,19 @@ public class MyBoton extends JButton implements Componente {
         this.operadorBD=operador;
     }
 
-    
-    
-    
-    
+    @Override
+    public void addActionListener(ActionListener l) {
+        super.addActionListener(l); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getTipo() {
+        return tipo;
+    }
+
+    @Override
+    public void setTipo(int tipo) {
+        this.tipo=tipo;
+    }
+
 }

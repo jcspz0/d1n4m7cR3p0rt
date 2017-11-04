@@ -16,4 +16,7 @@ public interface Componente {
     void setValor(Object valor);
     String getOperadorBD();
     void setOperadorBD(String operador);
+    int getTipo();
+    void setTipo(int tipo);
+    
 }

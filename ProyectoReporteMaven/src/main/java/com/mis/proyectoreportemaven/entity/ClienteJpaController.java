@@ -5,7 +5,7 @@
  */
 package com.mis.proyectoreportemaven.entity;
 
-import com.mis.proyectoreportemaven.archivos.exceptions.NonexistentEntityException;
+import com.mis.proyectoreportemaven.exceptions.NonexistentEntityException;
 import com.mis.proyectoreportemaven.entity.Cliente;
 import java.io.Serializable;
 import java.util.List;

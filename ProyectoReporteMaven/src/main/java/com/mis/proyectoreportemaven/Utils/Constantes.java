@@ -20,5 +20,12 @@ public class Constantes {
     
     public static final int BOTON_REPORTE=1;
     public static final int BOTON_GUARDAR=2;
+    public static final int BOTON_AGREGAR_CABECERA=3;
+    
+    public static final int TEXTO_CADENA=1;
+    public static final int TEXTO_NUMERO=2;
+    
+    public static final String COMBO_CLIENTE="CLIENTE";
+    public static final int COMBO_TIPO_CABECERA=1;
     
 }

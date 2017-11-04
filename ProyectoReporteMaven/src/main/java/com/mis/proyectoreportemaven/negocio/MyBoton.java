@@ -20,7 +20,7 @@ import javax.swing.border.EmptyBorder;
  *
  * @author admin
  */
-public class MyBoton extends JButton implements Componente {
+public class MyBoton extends JButton implements Componente, ActionListener {
 
     private String nombreBD;
     private String operadorBD;
@@ -34,32 +34,11 @@ public class MyBoton extends JButton implements Componente {
         super();
     }
     
-    public MyBoton(String valor,int tipo) {
-        super(valor);
+    public MyBoton(Object valor,int tipo) {
+        super((String)valor);
+        this.tipo = tipo;
 //        if (tipo==Constantes.BOTON_REPORTE) {
-            addActionListener(new ActionListener() {
-                EventoBoton eventoBoton = new EventoBoton();
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                     eventoBoton.notifyObservers();
-                }
-            });
-//        }
-    }
-    
-    public MyBoton(String texto,int tipo,MyComboBox comboBox,MyEtiqueta etiqueta) {
-        super(texto);
-        this.tipo=tipo;
-        this.comboBox=comboBox;
-        this.etiqueta=etiqueta;
-//        if (tipo==Constantes.BOTON_REPORTE) {
-            addActionListener(new ActionListener() {
-                EventoBoton eventoBoton = new EventoBoton();
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                     eventoBoton.notifyObservers();
-                }
-            });
+            addActionListener(this);
 //        }
     }
 
@@ -106,4 +85,28 @@ public class MyBoton extends JButton implements Componente {
         this.tipo=tipo;
     }
 
+    public MyComboBox getComboBox() {
+        return comboBox;
+    }
+
+    public void setComboBox(MyComboBox comboBox) {
+        this.comboBox = comboBox;
+    }
+
+    public MyEtiqueta getEtiqueta() {
+        return etiqueta;
+    }
+
+    public void setEtiqueta(MyEtiqueta etiqueta) {
+        this.etiqueta = etiqueta;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        EventoBoton eventoBoton = new EventoBoton();
+        eventoBoton.notifyObservers(this.tipo);
+    }
+
+    
+    
 }

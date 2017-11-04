@@ -22,13 +22,13 @@ public class MyEtiqueta extends JLabel implements Componente {
         super();
     }
     
-    public MyEtiqueta(String valor) {
-        super(valor);
+    public MyEtiqueta(Object valor) {
+        super((String)valor);
 //        setBorder(BorderFactory.createEmptyBorder(0, 100, 0, 0));
     }
     
-    public MyEtiqueta(String texto,String nombreBD, String operador) {
-        super(texto);
+    public MyEtiqueta(Object texto,String nombreBD, String operador) {
+        super((String)texto);
         this.nombreBD=nombreBD;
         this.operadorBD=operador;
     }

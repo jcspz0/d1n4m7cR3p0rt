@@ -14,13 +14,13 @@ import java.util.Map;
  */
 public class FactoriaComponente {
     
-    public static Componente getComponente(String tipoComponent, String valor, int tipo, String nombreBD, String operador, Object obj1, Object obj2){
+    public static Componente getComponente(String tipoComponent, Object valor, int tipo, String nombreBD, String operador){
         switch(tipoComponent){
             case "etiqueta" : return new MyEtiqueta(valor);
             case "boton" : return new MyBoton(valor,tipo);
-            case "botonComboText" : return new MyBoton(valor,tipo,(MyComboBox)obj1,(MyEtiqueta)obj2);
+//            case "botonComboText" : return new MyBoton(valor,tipo,(MyComboBox)obj1,(MyEtiqueta)obj2);
             case "texto" : return new MyTexto(valor,nombreBD,operador,tipo);
-            case "comboCabecera" : return new MyComboBox(valor, tipo, nombreBD, operador);
+            case "combo" : return new MyComboBox(valor, tipo, nombreBD, operador);
             default:break;
         }
         return null;

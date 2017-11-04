@@ -23,8 +23,8 @@ public class MyTexto extends JTextField implements Componente {
         super();
     }
     
-    public MyTexto(String texto,String nombreBD, String operador, int tipo) {
-        super(texto);
+    public MyTexto(Object texto,String nombreBD, String operador, int tipo) {
+        super((String)texto);
         this.nombreBD=nombreBD;
         this.operadorBD=operador;
         this.tipo=tipo;

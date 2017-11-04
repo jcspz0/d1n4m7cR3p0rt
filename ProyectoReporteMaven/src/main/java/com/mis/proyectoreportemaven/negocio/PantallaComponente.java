@@ -88,12 +88,12 @@ public class PantallaComponente extends JFrame implements IMyBoton{
     public void presionado(int tipo) {
         if(tipo==Constantes.BOTON_REPORTE){
             System.out.println("Se presiono un boton de tipo reporte");
+            consulta(crearQuery());
         }
-        if(tipo==Constantes.BOTON_AGREGAR_CABECERA){
-            System.out.println("Se presiono un boton de agregado de cabeceras");
-            
-        }
-        consulta(crearQuery());
+//        if(tipo==Constantes.BOTON_AGREGAR_CABECERA){
+//            System.out.println("Se presiono un boton de agregado de cabeceras");
+//        }
+//        consulta(crearQuery());
     }
     
     private void consulta(String query){
@@ -103,13 +103,39 @@ public class PantallaComponente extends JFrame implements IMyBoton{
         List<Cliente> clientes = q.getResultList();
         for (Iterator<Cliente> iterator = clientes.iterator(); iterator.hasNext();) {
             Cliente next = iterator.next();
-            System.out.println(next.getNombre());
+            System.out.println("dato obtenido es : "+next.getNombre());
         }
         manager.close();
         factory.close();
     }
 
     private String crearQuery(){
-        return "";
+        String sql="SELECT ";
+        String cabecera = "*";
+        String queryWhere ="WHERE ";
+        for (Iterator<Componente> iterator = listaComponente.iterator(); iterator.hasNext();) {
+            Componente next = iterator.next();
+            switch(next.getTipo()){
+                case Constantes.TEXTO_CABECERA:
+                    cabecera=(String)next.getValor();
+                    break;
+                case Constantes.TEXTO_CADENA:
+                    queryWhere = queryWhere + next.getNombreBD() +" "+next.getOperadorBD()+" '"+(String)next.getValor()+"' and ";
+                    break;
+                case Constantes.TEXTO_NUMERO:
+                    queryWhere = queryWhere + next.getNombreBD() +" "+next.getOperadorBD()+" "+(String)next.getValor()+" and ";
+                    break;
+                case Constantes.COMBO_RELLENADO:
+                    queryWhere = queryWhere + next.getNombreBD() +" "+next.getOperadorBD()+" '"+(String)next.getValor()+"' and ";
+                    break;
+            }
+            
+        }
+        if(!queryWhere.equalsIgnoreCase(" ")){
+                queryWhere=queryWhere.substring(0, queryWhere.length()-4);
+            }
+        sql = sql + cabecera +" FROM CLIENTE "+queryWhere;
+        System.out.println(sql);
+        return sql;
     }
 }

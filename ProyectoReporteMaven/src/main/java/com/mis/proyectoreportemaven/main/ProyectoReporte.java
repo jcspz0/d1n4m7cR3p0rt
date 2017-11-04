@@ -1,6 +1,7 @@
 package com.mis.proyectoreportemaven.main;
 
 import com.mis.proyectoreportemaven.Utils.Constantes;
+import com.mis.proyectoreportemaven.Utils.comboValue;
 import com.mis.proyectoreportemaven.entity.Cliente;
 import com.mis.proyectoreportemaven.entity.ClienteJpaController;
 import com.mis.proyectoreportemaven.nashorn.NashApp;
@@ -24,6 +25,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.script.ScriptException;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -37,20 +39,22 @@ public class ProyectoReporte {
         PantallaComponente frame = new PantallaComponente("frame de swing con factory");
         
         
-        frame.adicionar((Component) FactoriaComponente.getComponente("etiqueta", "valor1",0,null,null,null,null));
-        frame.adicionar((Component) FactoriaComponente.getComponente("boton", "boton",0, null,null,null,null));
-        frame.adicionar((Component) FactoriaComponente.getComponente("texto", "", Constantes.TEXTO_CADENA,"NOMBRE EN BD",Constantes.OPERADOR_IGUAL,null,null));
-        frame.adicionar((Component)FactoriaComponente.getComponente("boton", "mostrar", Constantes.BOTON_REPORTE,null,null,null,null));
-        frame.adicionar((Component) FactoriaComponente.getComponente("texto", "texto cadena", Constantes.TEXTO_CADENA,"NOMBRE EN BD",Constantes.OPERADOR_IGUAL,null,null));
+        
+        frame.adicionar((Component) FactoriaComponente.getComponente("texto", "*", Constantes.TEXTO_CABECERA,"",""));
+        
+        frame.adicionar((Component) FactoriaComponente.getComponente("texto", "Juan", Constantes.TEXTO_CADENA,"NOMBRE",Constantes.OPERADOR_IGUAL));
+        
+        DefaultComboBoxModel combo = new DefaultComboBoxModel();
+        combo.addElement("M");
+        combo.addElement("F");
         
         
-        frame.adicionar((Component) FactoriaComponente.getComponente("comboCabecera", Constantes.COMBO_CLIENTE, Constantes.COMBO_TIPO_CABECERA,"NOMBRE EN BD",Constantes.OPERADOR_IGUAL,null,null));
-        frame.adicionar((Component) FactoriaComponente.getComponente("texto", "texto cadena", Constantes.TEXTO_CADENA,"NOMBRE EN BD",Constantes.OPERADOR_IGUAL,null,null));
-        frame.adicionar((Component)FactoriaComponente.getComponente("boton", "agregarCabecera", Constantes.BOTON_AGREGAR_CABECERA,null,null,null,null));
+        frame.adicionar((Component) FactoriaComponente.getComponente("combo", (DefaultComboBoxModel)combo, Constantes.COMBO_RELLENADO,"SEXO",Constantes.OPERADOR_IGUAL));
         
+        frame.adicionar((Component)FactoriaComponente.getComponente("boton", "mostrar", Constantes.BOTON_REPORTE,null,null));
         
         frame.mostrar();
-//        frame.listarComponentes();
+        frame.listarComponentes();
     }
     
     public static void obtenerDatos(){

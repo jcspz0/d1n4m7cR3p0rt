@@ -12,5 +12,5 @@ package com.mis.proyectoreportemaven.negocio;
 public interface Subject {
     public void attach(IMyBoton observador);
     public void dettach(IMyBoton observador);
-    public void notifyObservers();
+    public void notifyObservers(int tipo);
 }

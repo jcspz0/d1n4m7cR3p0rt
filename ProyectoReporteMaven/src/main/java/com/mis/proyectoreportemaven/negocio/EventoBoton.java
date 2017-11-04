@@ -24,9 +24,9 @@ public class EventoBoton implements Subject{
     }
 
     @Override
-    public void notifyObservers() {
+    public void notifyObservers(int tipo) {
         for (int i = 0; i < observadores.size(); i++) {
-            observadores.get(i).presionado(Constantes.BOTON_REPORTE);
+            observadores.get(i).presionado(tipo);
         }
     }
 }

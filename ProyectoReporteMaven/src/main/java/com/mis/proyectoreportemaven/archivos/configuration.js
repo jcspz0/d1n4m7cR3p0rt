@@ -6,6 +6,8 @@ importPackage(com.mis.proyectoreportemaven.negocio);
 importPackage(com.mis.proyectoreportemaven.entity);
 importClass(com.mis.proyectoreportemaven.negocio.FactoriaComponente);
 importClass(com.mis.proyectoreportemaven.Utils.Constantes);
+importPackage(javax.swing);
+importClass(javax.swing.DefaultComboBoxModel);
 //importacion de Objetos
 var ArrayList = Java.type("java.util.ArrayList");
 var pathArchivo = "src/main/java/com/mis/proyectoreportemaven/archivos/javaSwing.js"

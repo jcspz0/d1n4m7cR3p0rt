@@ -8,6 +8,7 @@ package com.mis.proyectoreportemaven.negocio;
 import com.mis.proyectoreportemaven.Utils.Constantes;
 import com.mis.proyectoreportemaven.entity.Cliente;
 import com.mis.proyectoreportemaven.entity.ClienteJpaController;
+import com.mis.proyectoreportemaven.report.MyReporte;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -15,7 +16,13 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -28,6 +35,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
+import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
+import net.sf.dynamicreports.report.builder.DynamicReports;
+import net.sf.dynamicreports.report.builder.column.Columns;
+import net.sf.dynamicreports.report.builder.component.Components;
+import net.sf.dynamicreports.report.builder.datatype.DataTypes;
+import net.sf.dynamicreports.report.constant.HorizontalAlignment;
+import net.sf.dynamicreports.report.exception.DRException;
 
 /**
  *
@@ -88,7 +102,9 @@ public class PantallaComponente extends JFrame implements IMyBoton{
     public void presionado(int tipo) {
         if(tipo==Constantes.BOTON_REPORTE){
             System.out.println("Se presiono un boton de tipo reporte");
-            consulta(crearQuery());
+//            consulta(crearQuery());
+            MyReporte reporte = new MyReporte(listaComponente);
+            reporte.generarReporte();
         }
 //        if(tipo==Constantes.BOTON_AGREGAR_CABECERA){
 //            System.out.println("Se presiono un boton de agregado de cabeceras");
@@ -109,33 +125,5 @@ public class PantallaComponente extends JFrame implements IMyBoton{
         factory.close();
     }
 
-    private String crearQuery(){
-        String sql="SELECT ";
-        String cabecera = "*";
-        String queryWhere ="WHERE ";
-        for (Iterator<Componente> iterator = listaComponente.iterator(); iterator.hasNext();) {
-            Componente next = iterator.next();
-            switch(next.getTipo()){
-                case Constantes.TEXTO_CABECERA:
-                    cabecera=(String)next.getValor();
-                    break;
-                case Constantes.TEXTO_CADENA:
-                    queryWhere = queryWhere + next.getNombreBD() +" "+next.getOperadorBD()+" '"+(String)next.getValor()+"' and ";
-                    break;
-                case Constantes.TEXTO_NUMERO:
-                    queryWhere = queryWhere + next.getNombreBD() +" "+next.getOperadorBD()+" "+(String)next.getValor()+" and ";
-                    break;
-                case Constantes.COMBO_RELLENADO:
-                    queryWhere = queryWhere + next.getNombreBD() +" "+next.getOperadorBD()+" '"+(String)next.getValor()+"' and ";
-                    break;
-            }
-            
-        }
-        if(!queryWhere.equalsIgnoreCase(" ")){
-                queryWhere=queryWhere.substring(0, queryWhere.length()-4);
-            }
-        sql = sql + cabecera +" FROM CLIENTE "+queryWhere;
-        System.out.println(sql);
-        return sql;
-    }
+    
 }

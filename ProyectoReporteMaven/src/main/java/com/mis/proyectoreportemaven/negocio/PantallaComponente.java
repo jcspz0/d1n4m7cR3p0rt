@@ -6,6 +6,7 @@
 package com.mis.proyectoreportemaven.negocio;
 
 import com.mis.proyectoreportemaven.Utils.Constantes;
+import com.mis.proyectoreportemaven.Utils.DatosBD;
 import com.mis.proyectoreportemaven.entity.Cliente;
 import com.mis.proyectoreportemaven.entity.ClienteJpaController;
 import com.mis.proyectoreportemaven.report.MyReporte;
@@ -52,6 +53,7 @@ public class PantallaComponente extends JFrame implements IMyBoton{
     List<Componente> listaComponente;
     Box box;
     EventoBoton eventoBoton;
+
     
     public PantallaComponente(String frame_de_swing_con_factory) {
         super(frame_de_swing_con_factory);

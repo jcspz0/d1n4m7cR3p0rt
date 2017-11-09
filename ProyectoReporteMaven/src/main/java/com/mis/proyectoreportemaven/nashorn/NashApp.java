@@ -1,5 +1,6 @@
 package com.mis.proyectoreportemaven.nashorn;
 
+import com.mis.proyectoreportemaven.Utils.DatosBD;
 import com.mis.proyectoreportemaven.negocio.PantallaComponente;
 import java.awt.Label;
 import java.io.FileNotFoundException;
@@ -19,13 +20,18 @@ public class NashApp {
     private final ScriptEngine motor;
     private String pathArchivo;
     private final String configuration;
+    private final String configurationBD;
     private final Invocable invocador;
+    private static DatosBD bd;
 
     public NashApp() {
         manejador = new ScriptEngineManager();
         motor= manejador.getEngineByName("nashorn");
 //        this.pathArchivo="src/main/java/com/mis/proyectoreportemaven/archivos/javaSwing.js";
         this.configuration="src/main/java/com/mis/proyectoreportemaven/archivos/configuration.js";
+        this.configurationBD="src/main/java/com/mis/proyectoreportemaven/archivos/configurationBD.js";
+        bd = new DatosBD();
+        motor.put("datos", bd);
         invocador = (Invocable)motor;
         initConfiguration();
     }
@@ -34,6 +40,7 @@ public class NashApp {
         try {
             motor.put("pathArchivo", pathArchivo);
             motor.eval(new FileReader(configuration));
+            motor.eval(new FileReader(configurationBD));
             this.pathArchivo = (String) motor.get("pathArchivo");
         } catch (ScriptException ex) {
             Logger.getLogger(NashApp.class.getName()).log(Level.SEVERE, null, ex);
@@ -50,6 +57,7 @@ public class NashApp {
     }
     public void implementarInterfaz() throws ScriptException, FileNotFoundException, NoSuchMethodException{
         PantallaComponente frame = new PantallaComponente("frame de swing");
+        
         
         motor.put("frame", frame);
         

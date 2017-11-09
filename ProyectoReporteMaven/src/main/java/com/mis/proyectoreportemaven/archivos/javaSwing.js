@@ -1,6 +1,6 @@
 frame.setSize(600, 600);
 frame.adicionar( FactoriaComponente.getComponente("texto", "*", Constantes.TEXTO_CABECERA,"",""));
-frame.adicionar( FactoriaComponente.getComponente("texto", "Juan", Constantes.TEXTO_CADENA,"NOMBRE",Constantes.OPERADOR_IGUAL));
+frame.adicionar( FactoriaComponente.getComponente("texto", "Juan", Constantes.TEXTO_CADENA,"fecha",Constantes.OPERADOR_MAYOR));
 combo = new DefaultComboBoxModel();
 combo.addElement("M");
 combo.addElement("F");
